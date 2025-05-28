@@ -33,7 +33,7 @@ async function convertRedisToCsv() {
 
     try {
         // Connect to Redis
-        await client.connect();
+        //await client.connect();
 
         const csvRows = [];
         // Add CSV header row
