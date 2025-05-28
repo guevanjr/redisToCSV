@@ -23,7 +23,7 @@ async function convertRedisToCsv() {
     // Create a Redis client instance
     const client = redis.createClient({
         //url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
-        url: `redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
+        url: `redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
         // Add other options if needed, e.g., tls for SSL/TLS connections
     });
 
