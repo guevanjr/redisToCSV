@@ -1,0 +1,23 @@
+{
+  "name": "redistocsv",
+  "version": "1.0.0",
+  "description": "Read Redis DB data and write to a CSV file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.github.com/guevanjr/redisToCSV"
+  },
+  "keywords": [
+    "redis",
+    "csv"
+  ],
+  "author": "Simiao Guevane",
+  "license": "ISC",
+  "dependencies": {
+    "csv-stringify": "^6.5.2",
+    "redis": "^5.1.0"
+  }
+}
