@@ -1,7 +1,7 @@
 // Import necessary modules
-import { createClient } from 'redis'; // Redis client for Node.js
-import { stringify } from 'csv-stringify'; // Library for converting data to CSV format
-import { writeFile } from 'fs'; // Node.js file system module for writing to a file
+const { stringify } = require('csv-stringify'); // Library for converting data to CSV format
+const fs = require('fs'); // Node.js file system module for writing to a file
+const redis = require('redis'); // Redis client for Node.js
 
 // --- Configuration ---
 // Redis connection details
@@ -19,7 +19,7 @@ async function convertRedisToCsv() {
     console.log('Connecting to Redis...');
 
     // Create a Redis client instance
-    const client = createClient({
+    const client = redis.createClient({
         url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
         // Add other options if needed, e.g., tls for SSL/TLS connections
     });
@@ -97,7 +97,7 @@ async function convertRedisToCsv() {
                 return;
             }
             // Write the CSV string to the output file
-            writeFile(OUTPUT_CSV_FILE, output, (writeErr) => {
+            fs.writeFile(OUTPUT_CSV_FILE, output, (writeErr) => {
                 if (writeErr) {
                     console.error('Error writing CSV file:', writeErr);
                 } else {
