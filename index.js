@@ -1,3 +1,5 @@
+"use strict";
+
 // Import necessary modules
 const { stringify } = require('csv-stringify'); // Library for converting data to CSV format
 const fs = require('fs'); // Node.js file system module for writing to a file
