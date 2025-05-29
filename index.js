@@ -32,8 +32,7 @@ async function convertRedisToCsv() {
     client.on('error', (err) => console.error('Redis Client Error:', err));
 
     try {
-        // Connect to Redis
-        //await client.connect();
+        
 
         const csvRows = [];
         // Add CSV header row
@@ -42,6 +41,8 @@ async function convertRedisToCsv() {
         let cursor = 0; // Initial cursor for SCAN command
 
         console.log('Scanning Redis keys and fetching data...');
+        // Connect to Redis
+        await client.connect();
 
         // Use SCAN command to iterate over keys, which is efficient for large databases
         do {
