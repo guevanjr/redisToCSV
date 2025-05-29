@@ -35,11 +35,11 @@ async function convertRedisToCsv() {
 
 
     // Handle connection events
-    //client.on('connect', () => console.log('Redis client connected.'));
-    client.on('connect', function() {
+    client.on('connect', () => console.log('Redis client connected.'));
+    /*client.on('connect', function() {
         console.log('Redis connected ...')
     });
-
+    */
     client.on('error', (err) => console.error('Redis Client Error:', err));
 
     try {
