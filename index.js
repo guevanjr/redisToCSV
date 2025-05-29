@@ -53,6 +53,9 @@
                 console.log('Authenticated with Redis.');
             }
 
+            // Connect to Redis
+            await client.connect();
+            
             // Select the database
             await util.promisify(client.select).bind(client)(REDIS_DB);
             console.log(`Selected Redis DB ${REDIS_DB}.`);
