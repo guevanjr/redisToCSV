@@ -29,8 +29,8 @@ async function convertRedisToCsv() {
     });*/
     const client = redis.createClient({
         host: '127.0.0.1',
-        port: 2468,
-        password: 'Jr@Redis-CLI2021'
+        port: 2468/*,
+        password: 'Jr@Redis-CLI2021'*/
     });
 
 
