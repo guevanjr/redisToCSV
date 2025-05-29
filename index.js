@@ -47,17 +47,19 @@ async function convertRedisToCsv() {
         do {
             // SCAN returns an array: [new_cursor, [key1, key2, ...]]
             const result = await client.scan(cursor, { COUNT: 100 }); // Fetch 100 keys at a time
+            console.log('Result [line 50]: ' + result)
             cursor = parseInt(result.cursor); // Update cursor for the next iteration
             const keys = result.keys;
-
+            console.log('Keys [line 52]: ' + keys)
             for (const key of keys) {
                 const type = await client.type(key); // Get the type of the key
-
+                console.log('Type [line 56]: ' + type)
                 let value;
-                // Fetch value based on key type
+                // Fetch value based on key type                
                 switch (type) {
                     case 'string':
                         value = await client.get(key);
+                        console.log('Value [line 62]: ' + value)
                         break;
                     case 'hash':
                         // HMGET returns an array of values for specified fields.
@@ -65,16 +67,19 @@ async function convertRedisToCsv() {
                         const hashData = await client.hGetAll(key);
                         // Convert hash object to a string representation for CSV
                         value = JSON.stringify(hashData);
+                        console.log('Value [line 70]: ' + value)
                         break;
                     case 'list':
                         // LRANGE returns elements within a range from a list
                         const listData = await client.lRange(key, 0, -1);
                         value = JSON.stringify(listData);
+                        console.log('Value [line 76]: ' + value)
                         break;
                     case 'set':
                         // SMEMBERS returns all members of the set
                         const setData = await client.sMembers(key);
                         value = JSON.stringify(setData);
+                        console.log('Value [line 82]: ' + value)
                         break;
                     case 'zset':
                         // ZRANGE returns members of a sorted set in a range
@@ -82,6 +87,7 @@ async function convertRedisToCsv() {
                         const zsetData = await client.zRangeWithScores(key, 0, -1);
                         // Convert array of objects to a string representation
                         value = JSON.stringify(zsetData.map(item => ({ member: item.value, score: item.score })));
+                        console.log('Value [line 90]: ' + value)
                         break;
                     default:
                         value = `Unsupported Type: ${type}`;
