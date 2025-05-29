@@ -21,11 +21,18 @@ async function convertRedisToCsv() {
     console.log('Connecting to Redis...');
 
     // Create a Redis client instance
+    /*
     const client = redis.createClient({
         //url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
         url: `redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
         // Add other options if needed, e.g., tls for SSL/TLS connections
+    });*/
+    const client = redis.createClient({
+        host: '127.0.0.1',
+        port: 2468,
+        password: 'Jr@Redis-CLI2021'
     });
+
 
     // Handle connection events
     client.on('connect', () => console.log('Redis client connected.'));
