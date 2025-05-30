@@ -16,18 +16,19 @@ const REDIS_PASSWORD = 'Jr@Redis-CLI2021';     // Your Redis password, if any. L
 const REDIS_DB = 0;            // The Redis database index to connect to (default is 0)
 
 // Create a Redis client instance
-/*
+
 const client = redis.createClient({
     //url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
     url: `redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
     // Add other options if needed, e.g., tls for SSL/TLS connections
-});*/
+});
+/*
 const client = redis.createClient({
     host: '127.0.0.1',
-    port: 2468/*,
-    password: 'Jr@Redis-CLI2021'*/
+    port: 2468,
+    password: 'Jr@Redis-CLI2021'
 });
-
+*/
 // Output CSV file path
 const OUTPUT_CSV_FILE = 'redis_data.csv';
 
