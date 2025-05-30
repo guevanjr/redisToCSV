@@ -1,5 +1,8 @@
 "use strict";
 
+const express = require('express');
+const app = express();
+
 // Import necessary modules
 const { stringify } = require('csv-stringify'); // Library for converting data to CSV format
 const fs = require('fs'); // Node.js file system module for writing to a file
@@ -12,35 +15,36 @@ const REDIS_PORT = 2468;       // Your Redis port (default is 6379)
 const REDIS_PASSWORD = 'Jr@Redis-CLI2021';     // Your Redis password, if any. Leave empty if no password.
 const REDIS_DB = 0;            // The Redis database index to connect to (default is 0)
 
+// Create a Redis client instance
+/*
+const client = redis.createClient({
+    //url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
+    url: `redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
+    // Add other options if needed, e.g., tls for SSL/TLS connections
+});*/
+const client = redis.createClient({
+    host: '127.0.0.1',
+    port: 2468/*,
+    password: 'Jr@Redis-CLI2021'*/
+});
+
 // Output CSV file path
 const OUTPUT_CSV_FILE = 'redis_data.csv';
 
 // --- Main Script Logic ---
 
 async function convertRedisToCsv() {
-    console.log('Connecting to Redis...');
+//    console.log('Connecting to Redis...');
 
-    // Create a Redis client instance
-    /*
-    const client = redis.createClient({
-        //url: `redis://default:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
-        url: `redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
-        // Add other options if needed, e.g., tls for SSL/TLS connections
-    });*/
-    const client = redis.createClient({
-        host: '127.0.0.1',
-        port: 2468/*,
-        password: 'Jr@Redis-CLI2021'*/
-    });
 
 
     // Handle connection events
-    client.on('connect', () => console.log('Redis client connected.'));
+  //  client.on('connect', () => console.log('Redis client connected.'));
     /*client.on('connect', function() {
         console.log('Redis connected ...')
     });
     */
-    client.on('error', (err) => console.error('Redis Client Error:', err));
+    //client.on('error', (err) => console.error('Redis Client Error:', err));
 
     try {
     
@@ -136,6 +140,21 @@ async function convertRedisToCsv() {
     }
 }
 
-// Execute the conversion function
-convertRedisToCsv();
+var port = 3691;
+app.listen(port, function () {
+    console.log('Listening to Redis DB on port ' + port);
+
+    // Connect REDIS Database
+    client.on('connect', function() {
+        console.log('Redis connected ...')
+        convertRedisToCsv();
+    });
+
+    client.on('error', function(err) {
+        console.log('Redis DB Error:  ...' + err)
+     });
+
+    // Execute the conversion function
+});
+
 
